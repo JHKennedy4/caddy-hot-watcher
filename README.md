@@ -1,6 +1,6 @@
 ## Caddy Hot Watcher
 
-A simple filesystem watcher for use with [jspm-hot-reloader](https://github.com/JHKennedy4/jspm-hot-reloader)
+A simple filesystem watcher for use with [caddy-hot-loader](https://github.com/JHKennedy4/caddy-hot-loader)
 
 ### Installation
 If $GOPATH/bin is in your $PATH:
