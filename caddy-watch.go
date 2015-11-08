@@ -6,11 +6,12 @@ import (
 	"log"
 )
 
-const watch_path = "./app"
+const watch_path = "./"
 
 func main() {
 
-	fmt.Println("connected")
+	fmt.Println("caddy-hot-watcher connected")
+
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
 		log.Fatal(err)

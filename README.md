@@ -1,8 +1,12 @@
 ## Caddy Hot Watcher
 
-A High Performance Hot Module Reloader for the Caddy HTTP/2 web server
+A simple filesystem watcher for use with [caddy-hot-reloader]()
 
-For starters, we're just watching changes to files within the /app directory recursively
+### Installation
+If $GOPATH/bin is in your $PATH:
+`go get github.com/jhkennedy4/caddy-hot-watcher`
 
-#### TODO:
-* dynamically set the path based on the 'baseURL' of System.js
+TODO: download links
+
+### Usage
+Put `websocket /hot-watcher caddy-hot-watcher` in your Caddyfile
