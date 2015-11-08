@@ -9,4 +9,7 @@ If $GOPATH/bin is in your $PATH:
 TODO: download links
 
 ### Usage
-Put `websocket /hot-watcher caddy-hot-watcher` in your Caddyfile
+Add the following line to your Caddyfile:
+```
+websocket /hot-watcher caddy-hot-watcher
+```
