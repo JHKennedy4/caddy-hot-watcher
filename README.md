@@ -1,4 +1,6 @@
-## A High Performance Hot Module Reloader for the Caddy HTTP/2 web server
+## Caddy Hot Watcher
+
+A High Performance Hot Module Reloader for the Caddy HTTP/2 web server
 
 For starters, we're just watching changes to files within the /app directory recursively
 
