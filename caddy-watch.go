@@ -6,7 +6,6 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"strings"
 )
 
 // Let's do this
@@ -49,13 +48,13 @@ func watchThis(watcher fsnotify.Watcher, root string) filepath.WalkFunc {
 	return func(path string, info os.FileInfo, err error) error {
 
 		// skip these dirs
-		if strings.Contains(path, "node_modules") ||
-			strings.Contains(path, "jspm_packages") ||
+		if path == "node_modules" ||
+			path == "jspm_packages" ||
 			path == ".git" {
 			return filepath.SkipDir
 		}
 		// recurse unless self
-		if info.IsDir() && !strings.Contains(path, root) {
+		if info.IsDir() && path != root {
 			return filepath.Walk(path, watchThis(watcher, path))
 		}
 
