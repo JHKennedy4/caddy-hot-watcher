@@ -4,21 +4,25 @@ import (
 	"fmt"
 	"gopkg.in/fsnotify.v1"
 	"log"
+	"os"
+	"path/filepath"
+	"strings"
 )
 
-const watch_path = "./"
-
+// Let's do this
+// take in paths as CL Args
+// walk the paths
 func main() {
 
 	fmt.Println("caddy-hot-watcher connected")
+
+	done := make(chan bool)
 
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer watcher.Close()
-
-	done := make(chan bool)
 
 	go func() {
 		for {
@@ -33,10 +37,28 @@ func main() {
 		}
 	}()
 
-	err = watcher.Add(watch_path)
-
+	root := "./"
+	err = filepath.Walk(root, watchThis(*watcher, root))
 	if err != nil {
 		log.Fatal(err)
 	}
 	<-done
+}
+
+func watchThis(watcher fsnotify.Watcher, root string) filepath.WalkFunc {
+	return func(path string, info os.FileInfo, err error) error {
+
+		// skip these dirs
+		if strings.Contains(path, "node_modules") ||
+			strings.Contains(path, "jspm_packages") ||
+			path == ".git" {
+			return filepath.SkipDir
+		}
+		// recurse unless self
+		if info.IsDir() && !strings.Contains(path, root) {
+			return filepath.Walk(path, watchThis(watcher, path))
+		}
+
+		return watcher.Add(path)
+	}
 }
